@@ -53,7 +53,7 @@ REST API voor het beheren van het FC Pintalona zaalvoetbalteam. Dit is een schoo
 ### Stap 1: Clone de Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/jarno-js/fc-pintalona-api.git
 cd node.js-project
 ```
 
