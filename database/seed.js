@@ -138,6 +138,122 @@ async function seedDatabase() {
 
     console.log(`\n   📊 Matches Summary: ${completedCount} completed, ${scheduledCount} scheduled\n`);
 
+    // ============== SEED MATCH STATISTICS ==============
+    console.log('📊 Seeding match statistics...');
+
+    const matchStats = [
+      // Match 1: FC Baldikwaanst (6-14)
+      { player_id: 1, match_id: 1, goals: 3, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 11, match_id: 1, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 1, goals: 2, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 1, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 6, match_id: 1, goals: 0, assists: 2, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 1, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 2, match_id: 1, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 2: Azzuri (4-5)
+      { player_id: 1, match_id: 2, goals: 2, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 13, match_id: 2, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 2, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 5, match_id: 2, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 8, match_id: 2, goals: 0, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 7, match_id: 2, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 12, match_id: 2, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 3: Bizon Boys (3-4)
+      { player_id: 1, match_id: 3, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 11, match_id: 3, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 3, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 5, match_id: 3, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 6, match_id: 3, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 10, match_id: 3, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 2, match_id: 3, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 4: De Diltons (1-2)
+      { player_id: 1, match_id: 4, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 13, match_id: 4, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 4, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 4, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 7, match_id: 4, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 12, match_id: 4, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 2, match_id: 4, goals: 0, assists: 0, yellow_cards: 2, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 5: Tik & Binnen (4-9)
+      { player_id: 1, match_id: 5, goals: 2, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 11, match_id: 5, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 5, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 5, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 5, match_id: 5, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 6, match_id: 5, goals: 0, assists: 1, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 10, match_id: 5, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 6: Black Wolves (5-5)
+      { player_id: 1, match_id: 6, goals: 3, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 13, match_id: 6, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 6, goals: 1, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 5, match_id: 6, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 8, match_id: 6, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 6, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 7, match_id: 6, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 7: Freedomfighters (5-3)
+      { player_id: 1, match_id: 7, goals: 2, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 11, match_id: 7, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 7, goals: 2, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 7, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 6, match_id: 7, goals: 0, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 12, match_id: 7, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 7, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 9: Azzuri (12-6) - Match 8 was forfait
+      { player_id: 1, match_id: 9, goals: 5, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 13, match_id: 9, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 9, goals: 3, assists: 3, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 9, goals: 2, assists: 2, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 5, match_id: 9, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 6, match_id: 9, goals: 1, assists: 3, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 9, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 10: Copa - Tik & Binnen (2-9)
+      { player_id: 1, match_id: 10, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 11, match_id: 10, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 10, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 5, match_id: 10, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 7, match_id: 10, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 10, match_id: 10, goals: 0, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 12, match_id: 10, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+
+      // Match 11: Copa - MVC Kasteeltje (2-9)
+      { player_id: 1, match_id: 11, goals: 1, assists: 1, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: true },
+      { player_id: 13, match_id: 11, goals: 0, assists: 0, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 3, match_id: 11, goals: 1, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 4, match_id: 11, goals: 0, assists: 1, yellow_cards: 1, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 6, match_id: 11, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 9, match_id: 11, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false },
+      { player_id: 2, match_id: 11, goals: 0, assists: 0, yellow_cards: 0, red_cards: 0, minutes_played: 60, man_of_the_match: false }
+    ];
+
+    let statsAdded = 0;
+    for (const stat of matchStats) {
+      await connection.execute(
+        `INSERT INTO match_stats (player_id, match_id, goals, assists, yellow_cards, red_cards, minutes_played, man_of_the_match)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [stat.player_id, stat.match_id, stat.goals, stat.assists, stat.yellow_cards, stat.red_cards, stat.minutes_played, stat.man_of_the_match]
+      );
+      statsAdded++;
+    }
+    console.log(`   ✅ Added ${statsAdded} match statistics entries\n`);
+
+    // ============== SEED INJURIES ==============
+    console.log('🏥 Seeding injuries...');
+
+    await connection.execute(
+      `INSERT INTO injuries (player_id, injury_type, description, injury_date, expected_return_date, status)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [8, 'Enkelblessure', 'Verzwikte enkel tijdens wedstrijd tegen Black Wolves', '2025-10-21', '2026-02-01', 'active']
+    );
+    console.log('   ✅ Added injury: Ilias Mesror - Enkelblessure (actief)\n');
+
     // ============== FINAL SUMMARY ==============
     console.log('🎉 Database seeding complete!\n');
     console.log('📊 Final Statistics:');
@@ -147,6 +263,8 @@ async function seedDatabase() {
     console.log(`      • Copa: ${playedCopaMatches.length + upcomingCopaMatches.length} matches`);
     console.log(`      • Completed: ${completedCount}`);
     console.log(`      • Scheduled: ${scheduledCount}`);
+    console.log(`   📊 Match Stats: ${statsAdded} entries`);
+    console.log(`   🏥 Injuries: 1 active (Ilias Mesror - Enkelblessure)`);
 
   } catch (error) {
     console.error('❌ Error seeding database:', error);
