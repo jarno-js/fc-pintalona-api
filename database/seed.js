@@ -59,23 +59,21 @@ async function seedDatabase() {
   try {
     console.log('🌱 Starting FC Pintalona database seeding...\n');
 
+    // Clear all existing data first
+    console.log('🗑️  Clearing existing data...');
+    await connection.execute('SET FOREIGN_KEY_CHECKS = 0');
+    await connection.execute('TRUNCATE TABLE match_stats');
+    await connection.execute('TRUNCATE TABLE injuries');
+    await connection.execute('TRUNCATE TABLE matches');
+    await connection.execute('TRUNCATE TABLE players');
+    await connection.execute('SET FOREIGN_KEY_CHECKS = 1');
+    console.log('   ✅ Database cleared and IDs reset\n');
+
     // ============== SEED PLAYERS ==============
     console.log('👥 Seeding players...');
     let playersAdded = 0;
-    let playersSkipped = 0;
 
     for (const player of players) {
-      const [existing] = await connection.execute(
-        'SELECT id FROM players WHERE jersey_number = ?',
-        [player.jersey_number]
-      );
-
-      if (existing.length > 0) {
-        console.log(`   ⏭️  Skipped: #${player.jersey_number} ${player.name} (already exists)`);
-        playersSkipped++;
-        continue;
-      }
-
       await connection.execute(
         'INSERT INTO players (name, jersey_number, position, birth_date, active) VALUES (?, ?, ?, ?, true)',
         [player.name, player.jersey_number, player.position, player.birth_date]
@@ -85,14 +83,10 @@ async function seedDatabase() {
       playersAdded++;
     }
 
-    console.log(`\n   📊 Players Summary: ${playersAdded} added, ${playersSkipped} skipped\n`);
+    console.log(`\n   📊 Players Summary: ${playersAdded} players added\n`);
 
     // ============== SEED MATCHES ==============
     console.log('⚽ Seeding matches...');
-
-    // Clear existing matches
-    await connection.execute('DELETE FROM matches');
-    console.log('   🗑️  Cleared existing matches');
 
     const allMatches = [
       ...playedSuperLeagueMatches,
@@ -257,7 +251,7 @@ async function seedDatabase() {
     // ============== FINAL SUMMARY ==============
     console.log('🎉 Database seeding complete!\n');
     console.log('📊 Final Statistics:');
-    console.log(`   👥 Players: ${playersAdded} added (${players.length} total in squad)`);
+    console.log(`   👥 Players: ${playersAdded} players`);
     console.log(`   ⚽ Matches: ${allMatches.length} total`);
     console.log(`      • SuperLeague: ${playedSuperLeagueMatches.length + upcomingSuperLeagueMatches.length} matches`);
     console.log(`      • Copa: ${playedCopaMatches.length + upcomingCopaMatches.length} matches`);
