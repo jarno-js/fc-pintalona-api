@@ -7,11 +7,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "seed:matches": "node database/seedMatchesComplete.js",
-    "seed:players": "node database/seedPlayers.js",
-    "seed:all": "node database/seedPlayers.js && node database/seedMatchesComplete.js",
+    "seed": "node database/seed.js",
     "db:reset": "node database/reset.js",
-    "db:fresh": "node database/reset.js && node database/seedPlayers.js && node database/seedMatchesComplete.js"
+    "db:fresh": "node database/reset.js && node database/seed.js"
   },
   "keywords": ["rest-api", "express", "mysql", "zaalvoetbal"],
   "author": "",

@@ -87,25 +87,49 @@ DB_PORT=3306
 
 ## 🗄 Database Setup
 
-### Optie 1: Handmatig via MySQL CLI
+### Stap 1: Maak de Database en Tabellen aan
 
+**Optie A: Via MySQL CLI**
 ```bash
 # Log in op MySQL
 mysql -u root -p
 
 # Voer de schema SQL uit
 source database/schema.sql
-
-# Voer de seed data SQL uit (optioneel, voor voorbeelddata)
-source database/seed.sql
 ```
 
-### Optie 2: Via MySQL Workbench
-
+**Optie B: Via MySQL Workbench**
 1. Open MySQL Workbench
 2. Maak een nieuwe connectie of gebruik een bestaande
 3. Open `database/schema.sql` en voer uit
-4. Open `database/seed.sql` en voer uit (optioneel)
+
+### Stap 2: Seed de Database met Data
+
+Na het aanmaken van de tabellen, vul de database met de FC Pintalona data:
+
+```bash
+npm run seed
+```
+
+Dit voegt toe:
+- 13 spelers van FC Pintalona
+- 9 gespeelde SuperLeague wedstrijden
+- 7 aankomende SuperLeague wedstrijden
+- 2 gespeelde Copa wedstrijden
+- 2 aankomende Copa wedstrijden
+
+### Database Beheer Scripts
+
+```bash
+# Vul de database met data (spelers + wedstrijden)
+npm run seed
+
+# Reset de database (verwijdert alle data)
+npm run db:reset
+
+# Reset en vul de database opnieuw (fresh start)
+npm run db:fresh
+```
 
 ### Database Schema Overzicht
 
