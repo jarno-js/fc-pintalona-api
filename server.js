@@ -83,6 +83,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`\n🚀 FC Pintalona API server draait op http://localhost:${PORT}`);
   console.log(`📚 Bekijk de documentatie op http://localhost:${PORT}`);
+  console.log(`⚽ Frontend applicatie op http://localhost:${PORT}/app`);
   console.log(`🏥 Health check: http://localhost:${PORT}/api/health\n`);
 });
 
