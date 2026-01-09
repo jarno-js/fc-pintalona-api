@@ -117,7 +117,6 @@ export const validateMatch = (req, res, next) => {
 export const validateMatchStats = (req, res, next) => {
   const {
     player_id,
-    match_id,
     goals,
     assists,
     yellow_cards,
@@ -125,14 +124,13 @@ export const validateMatchStats = (req, res, next) => {
     minutes_played
   } = req.body;
 
-  // Player en Match ID validatie
+  // Player ID validatie
   if (!player_id || typeof player_id !== 'number') {
     return res.status(400).json({ error: 'Speler ID moet een nummer zijn' });
   }
 
-  if (!match_id || typeof match_id !== 'number') {
-    return res.status(400).json({ error: 'Wedstrijd ID moet een nummer zijn' });
-  }
+  // Match ID komt uit URL params bij POST /api/matches/:id/stats
+  // Dus we checken dat niet hier
 
   // Goals validatie
   if (goals !== undefined && goals !== null) {
