@@ -105,8 +105,16 @@ source database/schema.sql
 
 ### Stap 2: Seed de Database met Data
 
-Na het aanmaken van de tabellen, vul de database met de FC Pintalona data:
+Na het aanmaken van de tabellen, vul de database met de FC Pintalona data.
 
+**Optie A: Via SQL file (Eenvoudigst)**
+```bash
+# In MySQL CLI
+mysql -u root -p
+source database/seed.sql
+```
+
+**Optie B: Via npm script**
 ```bash
 npm run seed
 ```
@@ -129,6 +137,12 @@ npm run db:reset
 
 # Reset en vul de database opnieuw (fresh start)
 npm run db:fresh
+```
+
+**Of direct via SQL:**
+```bash
+mysql -u root -p FcPintalona < database/schema.sql
+mysql -u root -p FcPintalona < database/seed.sql
 ```
 
 ### Database Schema Overzicht
