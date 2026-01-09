@@ -74,11 +74,14 @@ cp .env.example .env
 Pas de waarden aan in `.env`:
 
 ```env
+# Server Configuration
 PORT=3000
+
+# Database Configuration
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=jouw_wachtwoord
-DB_NAME=fc_pintalona
+DB_PASSWORD=
+DB_NAME=FcPintalona
 DB_PORT=3306
 ```
 
