@@ -54,7 +54,7 @@ REST API voor het beheren van het FC Pintalona zaalvoetbalteam. Dit is een schoo
 
 ```bash
 git clone https://github.com/jarno-js/fc-pintalona-api.git
-cd node.js-project
+cd fc-pintalona-api
 ```
 
 ### Stap 2: Installeer Dependencies
