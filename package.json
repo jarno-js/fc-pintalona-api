@@ -1,0 +1,27 @@
+{
+  "name": "fc-pintalona-api",
+  "version": "1.0.0",
+  "description": "REST API voor FC Pintalona zaalvoetbalteam",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed:matches": "node database/seedMatchesComplete.js",
+    "seed:players": "node database/seedPlayers.js",
+    "seed:all": "node database/seedPlayers.js && node database/seedMatchesComplete.js",
+    "db:reset": "node database/reset.js",
+    "db:fresh": "node database/reset.js && node database/seedPlayers.js && node database/seedMatchesComplete.js"
+  },
+  "keywords": ["rest-api", "express", "mysql", "zaalvoetbal"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.1"
+  }
+}

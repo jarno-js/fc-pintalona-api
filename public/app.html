@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Pintalona - Team Management</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="/logo.png" alt="FC Pintalona" class="logo">
+                <h1>FC Pintalona</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+                <button class="nav-btn" data-tab="players">Spelers</button>
+                <button class="nav-btn" data-tab="matches">Wedstrijden</button>
+                <button class="nav-btn" data-tab="stats">Statistieken</button>
+                <button class="nav-btn" data-tab="injuries">Blessures</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="container">
+                <h2>Team Dashboard</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="total-players">-</h3>
+                            <p>Actieve Spelers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚽</div>
+                        <div class="stat-info">
+                            <h3 id="total-matches">-</h3>
+                            <p>Wedstrijden Gespeeld</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <h3 id="total-wins">-</h3>
+                            <p>Overwinningen</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <h3 id="win-percentage">-</h3>
+                            <p>Win %</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-section">
+                        <h3>Aankomende Wedstrijden</h3>
+                        <div id="upcoming-matches" class="matches-list"></div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <h3>Top Scorers</h3>
+                        <div id="top-scorers" class="scorers-list"></div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <h3>Recente Form</h3>
+                        <div id="team-form" class="form-display"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Players Tab -->
+        <section id="players" class="tab-content">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Spelers Beheer</h2>
+                    <button class="btn-primary" onclick="openPlayerModal()">+ Nieuwe Speler</button>
+                </div>
+
+                <div class="filters">
+                    <input type="text" id="player-search" placeholder="Zoek op naam..." class="search-input">
+                    <select id="position-filter" class="filter-select">
+                        <option value="">Alle Posities</option>
+                        <option value="Keeper">Keeper</option>
+                        <option value="Verdediger">Verdediger</option>
+                        <option value="Middenvelder">Middenvelder</option>
+                        <option value="Aanvaller">Aanvaller</option>
+                    </select>
+                    <button class="btn-secondary" onclick="loadPlayers()">Zoeken</button>
+                </div>
+
+                <div id="players-grid" class="players-grid"></div>
+            </div>
+        </section>
+
+        <!-- Matches Tab -->
+        <section id="matches" class="tab-content">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Wedstrijden Beheer</h2>
+                    <button class="btn-primary" onclick="openMatchModal()">+ Nieuwe Wedstrijd</button>
+                </div>
+
+                <div class="filters">
+                    <input type="text" id="match-search" placeholder="Zoek op tegenstander..." class="search-input">
+                    <select id="competition-filter" class="filter-select">
+                        <option value="">Alle Competities</option>
+                        <option value="SuperLeague">SuperLeague</option>
+                        <option value="Copa">Copa</option>
+                    </select>
+                    <select id="status-filter" class="filter-select">
+                        <option value="">Alle Statussen</option>
+                        <option value="scheduled">Ingepland</option>
+                        <option value="completed">Afgerond</option>
+                        <option value="cancelled">Geannuleerd</option>
+                    </select>
+                    <button class="btn-secondary" onclick="loadMatches()">Zoeken</button>
+                </div>
+
+                <div id="matches-list" class="matches-table"></div>
+            </div>
+        </section>
+
+        <!-- Stats Tab -->
+        <section id="stats" class="tab-content">
+            <div class="container">
+                <h2>Statistieken</h2>
+
+                <div class="stats-tabs">
+                    <button class="stats-tab-btn active" data-stats-tab="topscorers">Top Scorers</button>
+                    <button class="stats-tab-btn" data-stats-tab="assists">Assists</button>
+                    <button class="stats-tab-btn" data-stats-tab="cards">Kaarten</button>
+                </div>
+
+                <div id="topscorers" class="stats-tab-content active">
+                    <h3>Top 10 Doelpuntenmakers</h3>
+                    <div id="topscorers-list" class="stats-list"></div>
+                </div>
+
+                <div id="assists" class="stats-tab-content">
+                    <h3>Top 10 Assist Gevers</h3>
+                    <div id="assists-list" class="stats-list"></div>
+                </div>
+
+                <div id="cards" class="stats-tab-content">
+                    <h3>Kaarten Statistieken</h3>
+                    <div id="cards-list" class="stats-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Injuries Tab -->
+        <section id="injuries" class="tab-content">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Blessures Beheer</h2>
+                    <button class="btn-primary" onclick="openInjuryModal()">+ Nieuwe Blessure</button>
+                </div>
+
+                <div class="filters">
+                    <select id="injury-status-filter" class="filter-select">
+                        <option value="">Alle Statussen</option>
+                        <option value="active">Actief</option>
+                        <option value="recovering">Herstellend</option>
+                        <option value="recovered">Hersteld</option>
+                    </select>
+                    <button class="btn-secondary" onclick="loadInjuries()">Filter</button>
+                </div>
+
+                <div id="injuries-list" class="injuries-table"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Player Modal -->
+    <div id="playerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePlayerModal()">&times;</span>
+            <h2 id="playerModalTitle">Nieuwe Speler</h2>
+            <form id="playerForm" onsubmit="savePlayer(event)">
+                <input type="hidden" id="playerId">
+
+                <div class="form-group">
+                    <label>Naam *</label>
+                    <input type="text" id="playerName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rugnummer</label>
+                    <input type="number" id="playerJersey" min="1" max="99">
+                </div>
+
+                <div class="form-group">
+                    <label>Positie</label>
+                    <select id="playerPosition">
+                        <option value="">Selecteer positie</option>
+                        <option value="Keeper">Keeper</option>
+                        <option value="Verdediger">Verdediger</option>
+                        <option value="Middenvelder">Middenvelder</option>
+                        <option value="Aanvaller">Aanvaller</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Geboortedatum</label>
+                    <input type="date" id="playerBirthDate">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="playerActive" checked>
+                        Actief
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closePlayerModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Match Modal -->
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMatchModal()">&times;</span>
+            <h2 id="matchModalTitle">Nieuwe Wedstrijd</h2>
+            <form id="matchForm" onsubmit="saveMatch(event)">
+                <input type="hidden" id="matchId">
+
+                <div class="form-group">
+                    <label>Datum *</label>
+                    <input type="date" id="matchDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Tijd</label>
+                    <input type="time" id="matchTime">
+                </div>
+
+                <div class="form-group">
+                    <label>Tegenstander *</label>
+                    <input type="text" id="matchOpponent" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Locatie</label>
+                    <input type="text" id="matchLocation" value="Schepdaal">
+                </div>
+
+                <div class="form-group">
+                    <label>Thuis/Uit</label>
+                    <select id="matchHomeAway">
+                        <option value="home">Thuis</option>
+                        <option value="away">Uit</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Competitie</label>
+                    <select id="matchCompetition">
+                        <option value="SuperLeague">SuperLeague</option>
+                        <option value="Copa">Copa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>FC Pintalona Score</label>
+                    <input type="number" id="matchPintalonaScore" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Tegenstander Score</label>
+                    <input type="number" id="matchOpponentScore" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="matchStatus">
+                        <option value="scheduled">Ingepland</option>
+                        <option value="completed">Afgerond</option>
+                        <option value="cancelled">Geannuleerd</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Notities</label>
+                    <textarea id="matchNotes" rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeMatchModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Injury Modal -->
+    <div id="injuryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInjuryModal()">&times;</span>
+            <h2 id="injuryModalTitle">Nieuwe Blessure</h2>
+            <form id="injuryForm" onsubmit="saveInjury(event)">
+                <input type="hidden" id="injuryId">
+
+                <div class="form-group">
+                    <label>Speler *</label>
+                    <select id="injuryPlayerId" required></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Blessure Type *</label>
+                    <input type="text" id="injuryType" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Beschrijving</label>
+                    <textarea id="injuryDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Blessure Datum *</label>
+                    <input type="date" id="injuryDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Verwachte Terugkeer</label>
+                    <input type="date" id="injuryExpectedReturn">
+                </div>
+
+                <div class="form-group">
+                    <label>Daadwerkelijke Terugkeer</label>
+                    <input type="date" id="injuryActualReturn">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="injuryStatus">
+                        <option value="active">Actief</option>
+                        <option value="recovering">Herstellend</option>
+                        <option value="recovered">Hersteld</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeInjuryModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Match Stats Modal -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content modal-wide">
+            <span class="close" onclick="closeStatsModal()">&times;</span>
+            <h2 id="statsModalTitle">Wedstrijd Statistieken</h2>
+
+            <div class="stats-container">
+                <div class="stats-header">
+                    <button class="btn-primary" onclick="openAddPlayerStatsModal()">+ Speler Toevoegen</button>
+                </div>
+
+                <div id="match-stats-list" class="stats-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Player Stats Modal -->
+    <div id="addPlayerStatsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddPlayerStatsModal()">&times;</span>
+            <h2 id="playerStatsModalTitle">Speler Statistieken Toevoegen</h2>
+            <form id="playerStatsForm" onsubmit="savePlayerStats(event)">
+                <input type="hidden" id="currentMatchId">
+                <input type="hidden" id="currentStatsId">
+
+                <div class="form-group">
+                    <label>Speler *</label>
+                    <select id="statsPlayerId" required></select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Goals</label>
+                        <input type="number" id="statsGoals" min="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assists</label>
+                        <input type="number" id="statsAssists" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gele Kaarten</label>
+                        <input type="number" id="statsYellowCards" min="0" max="2" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rode Kaarten</label>
+                        <input type="number" id="statsRedCards" min="0" max="1" value="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Gespeelde Minuten</label>
+                    <input type="number" id="statsMinutes" min="0" max="60" value="60">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="statsManOfMatch">
+                        Man of the Match
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddPlayerStatsModal()">Annuleren</button>
+                    <button type="submit" class="btn-primary">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>

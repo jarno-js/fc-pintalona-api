@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Pintalona API Documentatie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+
+        .method.get {
+            background: #28a745;
+            color: white;
+        }
+
+        .method.post {
+            background: #007bff;
+            color: white;
+        }
+
+        .method.put {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .method.delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .path {
+            font-family: monospace;
+            font-size: 1.1em;
+            color: #495057;
+        }
+
+        .description {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .params {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .params strong {
+            color: #667eea;
+        }
+
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚽ FC Pintalona API</h1>
+            <p>REST API voor Zaalvoetbal Team Management</p>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <strong>Base URL:</strong> <code>http://localhost:3000</code><br>
+                <strong>Database:</strong> MySQL<br>
+                <strong>Formaat:</strong> JSON
+            </div>
+
+            <div class="section">
+                <h2>✨ Features</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>Spelers Beheer</h3>
+                        <p>CRUD operaties voor spelersgegevens</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Wedstrijden</h3>
+                        <p>Beheer wedstrijden en resultaten</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Statistieken</h3>
+                        <p>Uitgebreide speler- en team statistieken</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Blessures</h3>
+                        <p>Track spelerblessures en herstel</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>👥 Players Endpoints</h2>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/players</span>
+                    <div class="description">Haal alle spelers op met paginatie en filters</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?limit=10&offset=0&sortBy=name&order=ASC&position=Keeper&active=true</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/players/search</span>
+                    <div class="description">Zoek spelers op naam of positie</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?name=John&position=Aanvaller</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/players/:id</span>
+                    <div class="description">Haal een specifieke speler op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/players/:id/stats</span>
+                    <div class="description">Haal alle statistieken van een speler op (goals, assists, kaarten, etc.)</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/players/:id/injuries</span>
+                    <div class="description">Haal alle blessures van een speler op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/players</span>
+                    <div class="description">Maak een nieuwe speler aan</div>
+                    <div class="params">
+                        <strong>Body:</strong> <code>{ "name": "Jan Janssen", "jersey_number": 10, "position": "Aanvaller", "birth_date": "1995-05-15", "active": true }</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="path">/api/players/:id</span>
+                    <div class="description">Update een bestaande speler</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/players/:id</span>
+                    <div class="description">Verwijder een speler</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>⚽ Matches Endpoints</h2>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches</span>
+                    <div class="description">Haal alle wedstrijden op met paginatie</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?limit=10&offset=0&sortBy=match_date&order=DESC&status=completed</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches/search</span>
+                    <div class="description">Zoek wedstrijden op tegenstander, datum of status</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?opponent=FC%20United&date=2024-01-15&status=completed</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches/upcoming</span>
+                    <div class="description">Haal alle aankomende wedstrijden op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches/completed</span>
+                    <div class="description">Haal alle afgeronde wedstrijden op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches/:id</span>
+                    <div class="description">Haal een specifieke wedstrijd op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/matches</span>
+                    <div class="description">Maak een nieuwe wedstrijd aan</div>
+                    <div class="params">
+                        <strong>Body:</strong> <code>{ "match_date": "2024-01-20", "match_time": "20:00", "opponent": "FC United", "location": "Schepdaal", "home_away": "home", "status": "scheduled" }</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="path">/api/matches/:id</span>
+                    <div class="description">Update een wedstrijd (inclusief score)</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/matches/:id</span>
+                    <div class="description">Verwijder een wedstrijd</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 Match Statistics Endpoints</h2>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/matches/:id/stats</span>
+                    <div class="description">Haal alle statistieken van een wedstrijd op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/matches/:id/stats</span>
+                    <div class="description">Voeg statistieken toe voor een speler in deze wedstrijd</div>
+                    <div class="params">
+                        <strong>Body:</strong> <code>{ "player_id": 1, "goals": 2, "assists": 1, "yellow_cards": 0, "red_cards": 0, "minutes_played": 60, "man_of_the_match": true }</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="path">/api/stats/:id</span>
+                    <div class="description">Update wedstrijdstatistieken</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/stats/:id</span>
+                    <div class="description">Verwijder wedstrijdstatistieken</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🏆 Team Statistics Endpoints</h2>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/stats/topscorers</span>
+                    <div class="description">Top 10 doelpuntenmakers</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?limit=10</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/stats/assists</span>
+                    <div class="description">Top 10 assist-gevers</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?limit=10</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/stats/cards</span>
+                    <div class="description">Spelers met meeste kaarten</div>
+                    <div class="params">
+                        <strong>Query params:</strong> <code>?limit=10</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/stats/team</span>
+                    <div class="description">Uitgebreide team statistieken (wins, losses, goals, form, etc.)</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🏥 Injuries Endpoints</h2>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/injuries</span>
+                    <div class="description">Haal alle blessures op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/injuries/active</span>
+                    <div class="description">Haal alleen actieve blessures op</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/injuries</span>
+                    <div class="description">Registreer een nieuwe blessure</div>
+                    <div class="params">
+                        <strong>Body:</strong> <code>{ "player_id": 1, "injury_type": "Hamstring", "description": "Overbelasting", "injury_date": "2024-01-10", "expected_return_date": "2024-02-01", "status": "active" }</code>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="path">/api/injuries/:id</span>
+                    <div class="description">Update een blessure (bijvoorbeeld status naar 'recovered')</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/injuries/:id</span>
+                    <div class="description">Verwijder een blessure</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔒 Validatie Regels</h2>
+                <ul style="line-height: 2;">
+                    <li><strong>Namen:</strong> Alleen letters en spaties</li>
+                    <li><strong>Rugnummers:</strong> 1-99, uniek per speler</li>
+                    <li><strong>Posities:</strong> Keeper, Verdediger, Middenvelder, Aanvaller</li>
+                    <li><strong>Scores:</strong> Moet >= 0 zijn</li>
+                    <li><strong>Gespeelde minuten:</strong> 0-60 (zaalvoetbal)</li>
+                    <li><strong>Goals/Assists/Kaarten:</strong> Moet >= 0 zijn</li>
+                    <li><strong>Datums:</strong> expected_return_date moet na injury_date</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>FC Pintalona API</strong> | Node.js + Express + MySQL</p>
+            <p>Schoolproject Zaalvoetbal Team Management</p>
+        </footer>
+    </div>
+</body>
+</html>
